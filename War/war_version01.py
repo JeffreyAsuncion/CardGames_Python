@@ -51,6 +51,7 @@ while (len(player1_hand)>0) or (len(player2_hand)>0):
         player2_score +=1
     else:
         print("It's a Draw")
+        # need to add game logic in case of a tie
 
     print(f"\nPlayer One Score: {player1_score}   and  Player Two Score: {player2_score}")
 
