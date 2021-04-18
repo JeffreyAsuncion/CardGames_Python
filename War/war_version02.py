@@ -44,7 +44,8 @@ player1_score = 0
 player2_score = 0
 
 while (player1_hand) or (player2_hand):
-
+    if (len(player1_hand) < 3) or (len(player2_hand) < 3):
+        break 
     # pop one card each
     player1_card = player1_hand.pop(0)
     player2_card = player2_hand.pop(0)
