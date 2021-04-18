@@ -43,27 +43,47 @@ print(deck)
 player1_score = 0
 player2_score = 0
 
-while (len(player1_hand)>0) or (len(player2_hand)>0):
+while (player1_hand) or (player2_hand):
 
     # pop one card each
     player1_card = player1_hand.pop(0)
     player2_card = player2_hand.pop(0)
     print("~" * 40)
     input("\n1, 2, 3... War : Hit Enter")
+    # print("\n1, 2, 3... War : Hit Enter")
     print(f"Player One : {player1_card}   and  Player Two : {player2_card}")
     if player1_card > player2_card:
         print("Player One Wins!")
-        player1_score +=1
+        player1_hand.extend([player1_card, player2_hand])
+        
     elif player2_card > player1_card:
         print("Player Two Wins!")
-        player2_score +=1
+        player2_hand.extend([player1_card, player2_hand])
+
     else:
         print("It's a Draw")
         # need to add game logic in case of a tie
+        # draw = []
+        # for i in range(4):
+        #     if player1_hand:
+        #         draw.append(player1_hand.pop(0))        
+        #     if player2_hand
+        #         draw.append(player2_hand.pop(0))
+        # # print("\n1, 2, 3... War : Hit Enter")
+        # print(f"Player One : {draw[3]}   and  Player Two : {draw[7]}")
+        # if draw[3] > draw[7]:
+        #     print("Player One Wins!")
+        #     player1_hand.extend(draw)
+            
+        # elif draw[3] < draw[7]:
+        #     print("Player Two Wins!")
+        #     player2_hand.extend(draw)
 
-    print(f"\nPlayer One Score: {player1_score}   and  Player Two Score: {player2_score}")
+
+
+    print(f"\nPlayer One Cards Left: {len(player1_hand)}   and  Player Two Cards Left: {len(player2_hand)}")
 
 print("\n\n")
 print("~" * 40)
 print("Final Score")
-print(f"Player One Score: {player1_score}   and  Player Two Score: {player2_score}")
+print(f"\nPlayer One Cards Left: {len(player1_hand)}   and  Player Two Cards Left: {len(player2_hand)}")
