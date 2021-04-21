@@ -9,15 +9,8 @@ Skills required: Counting and card values
 """
 
 
-# version two 
-
-# add draw game play
-# I, declare, war 3card deal
-# 4th card compare
-
-# 1. compare function
-# 2. player score changed to cards left
-# 3. draw game play
+# version two
+# if draw I declare war and compare 
 
 # we have four suits but for the game suits don't matter
 # the deck has 52 cards
@@ -42,49 +35,87 @@ print(len(deck))
 print(deck)
 player1_score = 0
 player2_score = 0
+draw_counter = 0
+double_draw = False
+i = 0
 
-while (player1_hand) or (player2_hand):
-    if (len(player1_hand) < 3) or (len(player2_hand) < 3):
-        break 
+while player1_hand and player2_hand:
+
     # pop one card each
     player1_card = player1_hand.pop(0)
     player2_card = player2_hand.pop(0)
+
     print("~" * 40)
+    print(f"Round {i}")
+    i += 1
     input("\n1, 2, 3... War : Hit Enter")
-    # print("\n1, 2, 3... War : Hit Enter")
     print(f"Player One : {player1_card}   and  Player Two : {player2_card}")
+    
+    # compare_cards
     if player1_card > player2_card:
         print("Player One Wins!")
-        player1_hand.extend([player1_card, player2_hand])
-        
+        player1_score +=1
+        # winner collects spoils
+        player1_hand.extend([player1_card, player2_card])
     elif player2_card > player1_card:
         print("Player Two Wins!")
-        player2_hand.extend([player1_card, player2_hand])
-
+        player2_score +=1
+        # winner collects spoils
+        player2_hand.extend([player1_card, player2_card])
     else:
         print("It's a Draw")
+        draw_counter += 1
+
+        # check which player has enough cards to play draw hand
+        # check len(player1_hand < 4)
+        if len(player1_hand) <= 4:
+            #player 2 wins this round
+            print("\n\n\n")
+            break
+        if len(player2_hand) <= 4:
+            # player 1 wins this round
+            print("\n\n\n")
+            break
+
+        print("I DECLARE WAR")
+        print("I DECLARE WAR")
+        print("I DECLARE WAR")
         # need to add game logic in case of a tie
-        # draw = []
-        # for i in range(4):
-        #     if player1_hand:
-        #         draw.append(player1_hand.pop(0))        
-        #     if player2_hand
-        #         draw.append(player2_hand.pop(0))
-        # # print("\n1, 2, 3... War : Hit Enter")
-        # print(f"Player One : {draw[3]}   and  Player Two : {draw[7]}")
-        # if draw[3] > draw[7]:
-        #     print("Player One Wins!")
-        #     player1_hand.extend(draw)
-            
-        # elif draw[3] < draw[7]:
-        #     print("Player Two Wins!")
-        #     player2_hand.extend(draw)
+        p1_1 = player1_hand.pop(0)
+        p1_2 = player1_hand.pop(0)
+        p1_3 = player1_hand.pop(0)
+        player1_card = player1_hand.pop(0)
+
+        p2_1 = player2_hand.pop(0)
+        p2_2 = player2_hand.pop(0)
+        p2_3 = player2_hand.pop(0)
+        player2_card = player2_hand.pop(0)
+
+        spoils = [p1_1, p1_2, p1_3, player1_card, p2_1, p2_2, p2_3, player2_card]
+        # compare_card
+        print(f"Player One : {player1_card}   and  Player Two : {player2_card}")
+        if player1_card > player2_card:
+            print("Player One Wins!")
+            player1_score +=1
+            # winner collects spoils
+            player1_hand.extend(spoils)
+        elif player2_card > player1_card:
+            print("Player Two Wins!")
+            player2_score +=1
+            # winner collects spoils
+            player2_hand.extend(spoils)
+        else:
+            # Call Draw 
+            double_draw = True
+
+
+    print(f"\nPlayer One Score: {player1_score}   and  Player Two Score: {player2_score}")
 
 
 
-    print(f"\nPlayer One Cards Left: {len(player1_hand)}   and  Player Two Cards Left: {len(player2_hand)}")
 
 print("\n\n")
 print("~" * 40)
 print("Final Score")
-print(f"\nPlayer One Cards Left: {len(player1_hand)}   and  Player Two Cards Left: {len(player2_hand)}")
+print(f"Player One Score: {player1_score}   and  Player Two Score: {player2_score}")
+print(f"number of draws : {draw_counter} {double_draw}")
