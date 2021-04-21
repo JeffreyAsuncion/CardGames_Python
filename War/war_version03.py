@@ -43,7 +43,9 @@ import random
 # S: spades
 
 deck = []
-suit = ['D','H', 'S', 'C']
+# unicode for the card suits `very cool stuff`
+suit = ['\u2666', '\u2665', '\u2660', '\u2663']
+# suit = ['D','H', 'S', 'C']
 cards = ['2','3','4','5','6','7','8','9','10', 'J', 'Q', 'K', 'A']
 for symbol in suit:
     for card in cards:
@@ -51,13 +53,6 @@ for symbol in suit:
         deck.append(symbol+card)
 # dictionary to match card to value
 
-
-# deck1 will become deck
-
-# store deck1[1:]
-
-# create a deck of cards with no suits
-# deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] * 4
 
 # shuffle a deck
 random.shuffle(deck) 
