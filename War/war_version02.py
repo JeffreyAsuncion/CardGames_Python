@@ -20,6 +20,24 @@ Skills required: Counting and card values
 import random
 
 # this version cards will be all numerical
+# H: heart 
+# D: diamond
+# C: clubs
+# S: spades
+
+deck1 = []
+suit = ['D','H', 'S', 'C']
+cards = ['2','3','4','5','6','7','8','9','10', 'J', 'Q', 'K', 'A']
+for symbol in suit:
+    for card in cards:
+        # print(symbol + card)
+        deck1.append(symbol+card)
+# dictionary to match card to value
+
+
+# deck1 will become deck
+
+# store deck1[1:]
 
 # create a deck of cards with no suits
 deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] * 4
@@ -33,6 +51,7 @@ player2_hand = deck[len(deck)//2:]
 
 print(len(deck))
 print(deck)
+print(deck1)
 player1_score = 0
 player2_score = 0
 draw_counter = 0
