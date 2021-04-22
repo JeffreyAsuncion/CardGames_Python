@@ -67,12 +67,12 @@ player1_score = 0
 player2_score = 0
 draw_counter = 0
 double_draw = False
-i = 0
+i = 1
 
 while player1_hand and player2_hand:
-
-    print(player1_hand)
-    print(player2_hand)
+    # # show hands
+    # print(player1_hand)
+    # print(player2_hand)
 
     # pop one card eachprint(deck1)
     # change player1_card to player1_str
@@ -91,21 +91,23 @@ while player1_hand and player2_hand:
     print(f"Round {i}")
     i += 1
     input("\n1, 2, 3... War : Hit Enter")
-    print(f"Player One : {player1_strA}   and  Player Two : {player2_strA}")
+    print()
+    print(f"Player One   and  Player Two")
+    print(f"\t{player1_strA}\t\t{player2_strA}")
     
     # compare_cards
     if player1_card > player2_card:
-        print("Player One Wins!")
+        print("\tPlayer One Wins!")
         player1_score +=1
         # winner collects spoils
         player1_hand.extend([player1_strA, player2_strA])
     elif player2_card > player1_card:
-        print("Player Two Wins!")
+        print("\tPlayer Two Wins!")
         player2_score +=1
         # winner collects spoils
         player2_hand.extend([player1_strA, player2_strA])
     else:
-        print("It's a Draw")
+        print("\tIt's a Draw")
         draw_counter += 1
 
         # check which player has enough cards to play draw hand
@@ -119,9 +121,7 @@ while player1_hand and player2_hand:
             print("\n\n\n")
             break
 
-        print("I DECLARE WAR")
-        print("I DECLARE WAR")
-        print("I DECLARE WAR")
+
         # need to add game logic in case of a tie
         p1_1 = player1_hand.pop(0)
         p1_2 = player1_hand.pop(0)
@@ -132,6 +132,13 @@ while player1_hand and player2_hand:
         p2_2 = player2_hand.pop(0)
         p2_3 = player2_hand.pop(0)
         player2_strA = str(player2_hand.pop(0))
+        print("\tI\tI")
+        print(f"\t{p1_1}\t{p2_1}")
+        print("\tDECLARE\tDECLARE")
+        print(f"\t{p1_2}\t{p2_2}")
+        print("\tWAR\tWAR")
+        print(f"\t{p1_3}\t{p2_3}")
+        print("\tDraw Battle")
 
         # this catches the empty pop
         player1_str = player1_strA[1:]
@@ -145,7 +152,8 @@ while player1_hand and player2_hand:
 
         spoils = [p1_1, p1_2, p1_3, player1_strA, p2_1, p2_2, p2_3, player2_strA]
         # compare_card
-        print(f"Player One : {player1_strA}   and  Player Two : {player2_strA}")
+        print(f"Player One   and  Player Two")
+        print(f"\t{player1_strA}\t\t{player2_strA}")
         if player1_card > player2_card:
             print("Player One Wins!")
             player1_score +=1
