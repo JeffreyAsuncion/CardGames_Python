@@ -7,65 +7,41 @@ Cards: 52
 Players: 2
 Skills required: Counting and card values
 """
-
-
 # version four
-
 # 1. encapsulate the code into function for efficiency and reability 
 
-# we have four suits but for the game suits don't matter
-# the deck has 52 cards
-# each suit has 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14
-# where J:11, Q:12, K:13, A:14
-dict = { 
-    "2": 2,
-    "3": 3,
-    "4": 4,
-    "5": 5,
-    "6": 6,
-    "7": 7,
-    "8": 8,
-    "9": 9,
-    "10": 10,
-    "J": 11,
-    "Q": 12,
-    "K": 13,
-    "A": 14,
-}
 
 import random
+from clrprint import *
 
-def compare_values(player1_strA, player2_strA, player1_card, player2_card, player1_hand, player2_hand):
-    ############################### compare_card  ############################
+def compare_values(player1_strA, player2_strA, player1_card, player2_card, player1_hand, player2_hand, spoils):
     if player1_card > player2_card:
         print("\tPlayer One Wins!")
-        # player1_score +=1
         # winner collects spoils
-        player1_hand.extend([player1_strA, player2_strA])
+        player1_hand += spoils
     elif player2_card > player1_card:
         print("\tPlayer Two Wins!")
-        # player2_score +=1
         # winner collects spoils
-        player2_hand.extend([player1_strA, player2_strA])
+        player2_hand += spoils
     else:
-
         # check which player has enough cards to play draw hand
-        # check len(player1_hand < 4)
         if len(player1_hand) < 4:
             #player 2 wins this round
-            print("\n\n\n")
-            # break
+            print("\n player 1 : out of cards")
+            # spoils go to player2
+            player2_hand += spoils
+            return
         if len(player2_hand) < 4:
             # player 1 wins this round
-            print("\n\n\n")
-            # break
-
+            print("\n player 2 : out of cards")
+            # spoils go to player1
+            player1_hand += spoils
+            return
         # Draw_function
-        draw_func(draw_counter, player1_hand, player2_hand)
+        draw_func(player1_hand, player2_hand, spoils)
 
 
-
-def draw_func(draw_counter, player1_hand, player2_hand):
+def draw_func(player1_hand, player2_hand,spoils):
     # need to add game logic in case of a tie
     p1_1 = player1_hand.pop(0)
     p1_2 = player1_hand.pop(0)
@@ -97,107 +73,78 @@ def draw_func(draw_counter, player1_hand, player2_hand):
     player2_card = dict[player2_str]
     # where ever pop is compare need to paste this
 
-    spoils = [p1_1, p1_2, p1_3, player1_strA, p2_1, p2_2, p2_3, player2_strA]
+    spoils = spoils + [p1_1, p1_2, p1_3, player1_strA, p2_1, p2_2, p2_3, player2_strA]
 
-    compare_values(player1_strA, player2_strA, player1_card, player2_card, player1_hand, player2_hand)
-    ############################### compare_card  ############################
-    # print(f"Player One   and  Player Two")
-    # print(f"\t{player1_strA}\t\t{player2_strA}")
-    # if player1_card > player2_card:
-    #     print("Player One Wins!")
-    #     # player1_score +=1
-    #     # winner collects spoils
-    #     player1_hand.extend(spoils)
-    # elif player2_card > player1_card:
-    #     print("Player Two Wins!")
-    #     # player2_score +=1
-    #     # winner collects spoils
-    #     player2_hand.extend(spoils)
-    # else:
-    #     # Call Draw 
-    #     # double_draw = True
-    #     draw_func(draw_counter, player1_hand, player2_hand)
-
+    compare_values(player1_strA, player2_strA, player1_card, player2_card, player1_hand, player2_hand, spoils)
+    
 
 def card_to_value(player1_hand, player2_hand):
     # pop one card eachprint(deck1)
-    # change player1_card to player1_str
     player1_strA = str(player1_hand.pop(0))
     player2_strA = str(player2_hand.pop(0))
-    # this catches the empty pop
+
     player1_str = player1_strA[1:]
     player2_str = player2_strA[1:]
     
     player1_card = dict[player1_str]
     player2_card = dict[player2_str]
-    # where ever pop is compare need to paste this
     
     return (player1_card, player2_card, player1_strA, player2_strA)
 
 
-
-
-
-# this version cards will be all numerical
-# H: heart 
-# D: diamond
-# C: clubs
-# S: spades
+dict = { 
+    "2": 2,
+    "3": 3,
+    "4": 4,
+    "5": 5,
+    "6": 6,
+    "7": 7,
+    "8": 8,
+    "9": 9,
+    "10": 10,
+    "J": 11,
+    "Q": 12,
+    "K": 13,
+    "A": 14,
+}
 
 deck = []
 # unicode for the card suits `very cool stuff`
 suit = ['\u2666', '\u2665', '\u2660', '\u2663']
-# suit = ['D','H', 'S', 'C']
 cards = ['2','3','4','5','6','7','8','9','10', 'J', 'Q', 'K', 'A']
 for symbol in suit:
     for card in cards:
-        # print(symbol + card)
         deck.append(symbol+card)
-# dictionary to match card to value
-
 
 # shuffle a deck
 random.shuffle(deck) 
-
+random.shuffle(deck)
 # just give half deck each 52 / 2 = 26 card each
 player1_hand = deck[:len(deck)//2]
 player2_hand = deck[len(deck)//2:]
 
-print(len(deck))
-print(deck)
-player1_score = 0
-player2_score = 0
-draw_counter = 0
-double_draw = False
+# print(len(deck))
+# print(deck)
 i = 1
 
 while player1_hand and player2_hand:
     # # show hands
-    # print(player1_hand)
-    # print(player2_hand)
+    clrprint(player1_hand, clr='blue')
+    clrprint(player2_hand, clr='green')
 
     player1_card, player2_card, player1_strA, player2_strA = card_to_value(player1_hand, player2_hand)
-
 
     print("~" * 40)
     print(f"Round {i}")
     i += 1
     input("\n1, 2, 3... War : Hit Enter")
-    print()
-    print(f"Player One   and  Player Two")
+    print(f"\nPlayer One   and  Player Two")
     print(f"\t{player1_strA}\t\t{player2_strA}")
+    
+    spoils = [player1_strA, player2_strA]
+    compare_values(player1_strA, player2_strA, player1_card, player2_card, player1_hand, player2_hand, spoils)
+    print(f"\nPlayer One(# of cards): {len(player1_hand)}   and  Player Two(# of cards): {len(player2_hand)}  total cards {len(player1_hand)+len(player2_hand)}")
 
-    compare_values(player1_strA, player2_strA, player1_card, player2_card, player1_hand, player2_hand)
-
-
-
-    # print(f"\nPlayer One Score: {player1_score}   and  Player Two Score: {player2_score}")
-
-
-
-
-print("\n\n")
-print("~" * 40)
+print("\n\n" + "~" * 40)
 print("Final Score")
-# print(f"Player One Score: {player1_score}   and  Player Two Score: {player2_score}")
-print(f"number of draws : {draw_counter} {double_draw}")
+print(f"\nPlayer One(# of cards): {len(player1_hand)}   and  Player Two(# of cards): {len(player2_hand)}  total cards {len(player1_hand)+len(player2_hand)}")
